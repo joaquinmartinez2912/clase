@@ -39,6 +39,49 @@ from app.schemas.schema import (
     LocalidadSchema
 )
 
+from flask.views import MethodView
+
+class PaisAPI(MethodView):
+    def get(self, pais_id=None):
+        if pais_id is None:
+            paises = Pais.query.all()
+            resultado = PaisSchema().dump(paises, many=True)
+        else:
+            pais = Pais.query.get(pais_id)
+            resultado = PaisSchema().dump(pais)
+        return jsonify(resultado)
+    
+    def post(self):
+        pais_json = request.get_json()
+        pais_json = PaisSchema().load(request.json)
+        nombre = pais_json.get("nombre")
+
+        nuevo_pais = Pais(nombre=nombre)
+        db.session.add(nuevo_pais)
+        db.session.commit()
+        return jsonify(Mensaje="Metodo Post")
+
+    def put(self, pais_id):
+        pais = Pais.query.get(pais_id)
+        pais_json = PaisSchema().load(request.json)
+        nombre = pais_json.get("nombre")
+
+        db.session.commit()
+        return jsonify(Mensaje=f"Metodo PUT de pais:{pais_id}")
+    
+    def delete(self, pais_id):
+        pais = Pais.query.get(pais_id)
+        pais.delete()
+        db.session.commit()
+        return jsonify(Mensaje="Borraste el pais")
+
+
+app.add_url_rule("/pais", view_func=PaisAPI.as_view("pais"))
+
+app.add_url_rule("/pais/<pais_id>",view_func=PaisAPI.as_view("pais_por_id"))
+
+
+
 @app.route("/users")
 @jwt_required()
 def get_all_users():
