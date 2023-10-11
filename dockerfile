@@ -12,6 +12,8 @@ ENV FLASK_RUN_HOST=0.0.0.0
 
 
 #ENTRYPOINT [ "python" ] 
-CMD ["flask","run","--host=0.0.0.0", "--port=5005"]
+CMD ["sh", "run.sh"]
+
+# CMD ["flask","run","--host=0.0.0.0", "--port=5005"]
 
 #"sh","run.sh",

@@ -1,4 +1,5 @@
 import logging
+from app.models.models import (Pais, Provincia, Localidad, User, Persona)
 from logging.config import fileConfig
 
 from flask import current_app

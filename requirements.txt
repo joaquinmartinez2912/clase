@@ -41,3 +41,4 @@ typing-extensions==4.6.2
 wcwidth==0.2.6
 Werkzeug==2.3.4
 zipp==3.15.0
+gunicorn==21.2.0
