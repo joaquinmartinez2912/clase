@@ -11,6 +11,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)   
 
+
+load_dotenv()
 # La variable de entorno es para no subir informacion sensible al repo.
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://usuario:contraseña@ip/nombre_db
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
@@ -21,7 +23,7 @@ migrate = Migrate(app, db)
 jwt = JWTManager(app)
 ma = Marshmallow(app)
 
-load_dotenv()
+
 
 from app.views import view
 

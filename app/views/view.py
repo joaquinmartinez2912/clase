@@ -59,7 +59,7 @@ class PaisAPI(MethodView):
         nuevo_pais = Pais(nombre=nombre)
         db.session.add(nuevo_pais)
         db.session.commit()
-        return jsonify(Mensaje="Metodo Post")
+        return jsonify(Mensaje="Metodo Post"), 201
 
     def put(self, pais_id):
         pais = Pais.query.get(pais_id)
