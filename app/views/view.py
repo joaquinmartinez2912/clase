@@ -66,6 +66,7 @@ class PaisAPI(MethodView):
         pais_json = PaisSchema().load(request.json)
         nombre = pais_json.get("nombre")
 
+        pais.nombre = nombre
         db.session.commit()
         return jsonify(Mensaje=f"Metodo PUT de pais:{pais_id}")
     
